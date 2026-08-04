@@ -193,67 +193,139 @@ button{ font-family:inherit; cursor:pointer; }
    LOADER
    ========================================================= */
 .loader{
-  position:fixed; inset:0; z-index:9999;
-  display:flex; align-items:center; justify-content:center;
-  background:var(--bg);
-  transition:opacity .7s var(--ease-out), transform .7s var(--ease-out), visibility .7s;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  transition: opacity .5s ease, transform .5s ease, visibility .5s;
+  will-change: opacity, transform;
 }
+
 .loader.done{
-  opacity:0; transform:scale(1.04); pointer-events:none; visibility:hidden;
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+  visibility: hidden;
 }
-.loader-inner{ display:flex; flex-direction:column; align-items:center; gap:26px; }
+
+.loader-inner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+}
 
 .loader-mark{
-  position:relative; width:84px; height:84px;
-  display:flex; align-items:center; justify-content:center;
-  isolation:isolate;
+  position: relative;
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
 }
+
 .loader-mark::before{
-  content:''; position:absolute; inset:0; border-radius:22px;
-  background:conic-gradient(from 0deg, var(--accent-1), var(--accent-2), transparent 40%, var(--accent-1));
-  animation:spinRing 2.4s linear infinite;
-  -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
-  mask:radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent-1),
+    var(--accent-2),
+    transparent 40%,
+    var(--accent-1)
+  );
+  animation: spinRing 1.8s linear infinite;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+  will-change: transform;
 }
-@keyframes spinRing{ to{ transform:rotate(360deg); } }
+
+@keyframes spinRing{
+  to{
+    transform: rotate(360deg);
+  }
+}
 
 .loader-initials{
-  position:relative; z-index:1;
-  width:64px; height:64px; border-radius:16px;
-  background:var(--glass); border:1px solid var(--glass-border);
-  backdrop-filter:blur(10px);
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--font-display); font-weight:700; font-size:20px; letter-spacing:-0.02em;
-  animation:markPulse 2.4s var(--ease-out) infinite;
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid var(--glass-border);
+  /* backdrop-filter dihapus karena berat di HP */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -.02em;
+  animation: markPulse 2s ease-in-out infinite;
+  will-change: transform;
 }
+
 @keyframes markPulse{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.04); }
+  0%,100%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.03);
+  }
 }
 
 .loader-progress{
-  width:180px; height:3px; border-radius:100px; background:var(--border); overflow:hidden;
+  width: 180px;
+  height: 3px;
+  border-radius: 100px;
+  background: var(--border);
+  overflow: hidden;
 }
+
 .loader-progress-bar{
-  width:0%; height:100%; border-radius:100px; background:var(--accent-grad);
-  box-shadow:0 0 14px rgba(41,84,255,.6);
-  transition:width .25s var(--ease-out);
+  width: 0%;
+  height: 100%;
+  border-radius: 100px;
+  background: var(--accent-grad);
+  box-shadow: 0 0 6px rgba(41,84,255,.35);
+  transition: none;
+  will-change: width;
 }
 
 .loader-meta{
-  display:flex; align-items:center; gap:14px;
-  font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-soft);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
 }
+
 .loader-percent{
-  font-variant-numeric:tabular-nums; color:var(--text); min-width:34px; text-align:right;
+  min-width: 34px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
 }
 
 @media (prefers-reduced-motion: reduce){
-  .loader-mark::before{ animation:none; }
-  .loader-initials{ animation:none; }
-  .loader{ transition:opacity .3s ease; }
-}
+  .loader-mark::before,
+  .loader-initials{
+    animation: none;
+  }
 
+  .loader{
+    transition: opacity .3s ease;
+  }
+}
 /* =========================================================
    NAVBAR
    ========================================================= */
