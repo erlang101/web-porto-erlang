@@ -396,7 +396,7 @@ if (loader) {
     function tick() {
         const ceiling = target >= 100 ? 100 : 92;
 
-        progress += (ceiling - progress) * 0.06 + 0.1;
+        progress += (ceiling - progress) * 0.014 + 0.4;
         progress = Math.min(progress, ceiling);
 
         bar.style.width = progress + "%";
